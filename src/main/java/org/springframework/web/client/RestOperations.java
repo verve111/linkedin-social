@@ -400,7 +400,7 @@ public interface RestOperations {
 
 	/**
 	 * Execute the HTTP method to the given URI template, preparing the request with the
-	 * {@link RequestCallback}, and reading the response with a {@link ResponseExtractor}.
+	 * {@link RequestCallback2}, and reading the response with a {@link ResponseExtractor}.
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
@@ -409,12 +409,12 @@ public interface RestOperations {
 	 * @param uriVariables the variables to expand in the template
 	 * @return an arbitrary object, as returned by the {@link ResponseExtractor}
 	 */
-	<T> T execute(String url, HttpMethod method, RequestCallback requestCallback,
+	<T> T execute(String url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor, Object... uriVariables) throws RestClientException;
 
 	/**
 	 * Execute the HTTP method to the given URI template, preparing the request with the
-	 * {@link RequestCallback}, and reading the response with a {@link ResponseExtractor}.
+	 * {@link RequestCallback2}, and reading the response with a {@link ResponseExtractor}.
 	 * <p>URI Template variables are expanded using the given URI variables map.
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
@@ -423,19 +423,19 @@ public interface RestOperations {
 	 * @param uriVariables the variables to expand in the template
 	 * @return an arbitrary object, as returned by the {@link ResponseExtractor}
 	 */
-	<T> T execute(String url, HttpMethod method, RequestCallback requestCallback,
+	<T> T execute(String url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor, Map<String, ?> uriVariables) throws RestClientException;
 
 	/**
 	 * Execute the HTTP method to the given URL, preparing the request with the
-	 * {@link RequestCallback}, and reading the response with a {@link ResponseExtractor}.
+	 * {@link RequestCallback2}, and reading the response with a {@link ResponseExtractor}.
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
 	 * @param requestCallback object that prepares the request
 	 * @param responseExtractor object that extracts the return value from the response
 	 * @return an arbitrary object, as returned by the {@link ResponseExtractor}
 	 */
-	<T> T execute(URI url, HttpMethod method, RequestCallback requestCallback,
+	<T> T execute(URI url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor) throws RestClientException;
 
 }

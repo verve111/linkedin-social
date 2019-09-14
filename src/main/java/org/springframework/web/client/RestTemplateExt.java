@@ -30,11 +30,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequest2;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.support.InterceptingHttpAccessor;
+import org.springframework.http.client.support.InterceptingHttpAccessor2;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -104,17 +104,17 @@ import org.springframework.web.util.UriUtils;
  *
  * <p>This template uses a {@link org.springframework.http.client.SimpleClientHttpRequestFactory} and a {@link
  * DefaultResponseErrorHandler} as default strategies for creating HTTP connections or handling HTTP errors,
- * respectively. These defaults can be overridden through the {@link #setRequestFactory(ClientHttpRequestFactory)
+ * respectively. These defaults can be overridden through the {@link #setRequestFactory(ClientHttpRequestFactory2)
  * requestFactory} and {@link #setErrorHandler(ResponseErrorHandler) errorHandler} bean properties.
  *
  * @author Arjen Poutsma
  * @see HttpMessageConverter
- * @see RequestCallback
+ * @see RequestCallback2
  * @see ResponseExtractor
  * @see ResponseErrorHandler
  * @since 3.0
  */
-public class RestTemplateExt extends InterceptingHttpAccessor implements RestOperations {
+public class RestTemplateExt extends InterceptingHttpAccessor2 implements RestOperations {
 
 	private static final boolean jaxb2Present =
 			ClassUtils.isPresent("javax.xml.bind.Binder", RestTemplate.class.getClassLoader());
@@ -159,12 +159,12 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 	}
 
 	/**
-	 * Create a new instance of the {@link RestTemplate} based on the given {@link ClientHttpRequestFactory}.
+	 * Create a new instance of the {@link RestTemplate} based on the given {@link ClientHttpRequestFactory2}.
 	 * @param requestFactory HTTP request factory to use
 	 * @see org.springframework.http.client.SimpleClientHttpRequestFactory
 	 * @see org.springframework.http.client.CommonsClientHttpRequestFactory
 	 */
-	public RestTemplateExt(ClientHttpRequestFactory requestFactory) {
+	public RestTemplateExt(ClientHttpRequestFactory2 requestFactory) {
 		this();
 		setRequestFactory(requestFactory);
 	}
@@ -399,7 +399,7 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 
 	// general execution
 
-	public <T> T execute(String url, HttpMethod method, RequestCallback requestCallback,
+	public <T> T execute(String url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor, Object... urlVariables) throws RestClientException {
 
 		UriTemplate uriTemplate = new HttpUrlTemplate(url);
@@ -407,7 +407,7 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 		return doExecute(expanded, method, requestCallback, responseExtractor);
 	}
 
-	public <T> T execute(String url, HttpMethod method, RequestCallback requestCallback,
+	public <T> T execute(String url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor, Map<String, ?> urlVariables) throws RestClientException {
 
 		UriTemplate uriTemplate = new HttpUrlTemplate(url);
@@ -415,29 +415,29 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 		return doExecute(expanded, method, requestCallback, responseExtractor);
 	}
 
-	public <T> T execute(URI url, HttpMethod method, RequestCallback requestCallback,
+	public <T> T execute(URI url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor) throws RestClientException {
 
 		return doExecute(url, method, requestCallback, responseExtractor);
 	}
 
 	/**
-	 * Execute the given method on the provided URI. The {@link ClientHttpRequest} is processed using the {@link
-	 * RequestCallback}; the response with the {@link ResponseExtractor}.
+	 * Execute the given method on the provided URI. The {@link ClientHttpRequest2} is processed using the {@link
+	 * RequestCallback2}; the response with the {@link ResponseExtractor}.
 	 * @param url the fully-expanded URL to connect to
 	 * @param method the HTTP method to execute (GET, POST, etc.)
 	 * @param requestCallback object that prepares the request (can be <code>null</code>)
 	 * @param responseExtractor object that extracts the return value from the response (can be <code>null</code>)
 	 * @return an arbitrary object, as returned by the {@link ResponseExtractor}
 	 */
-	protected <T> T doExecute(URI url, HttpMethod method, RequestCallback requestCallback,
+	protected <T> T doExecute(URI url, HttpMethod method, RequestCallback2 requestCallback,
 			ResponseExtractor<T> responseExtractor) throws RestClientException {
 
 		Assert.notNull(url, "'url' must not be null");
 		Assert.notNull(method, "'method' must not be null");
 		ClientHttpResponse response = null;
 		try {
-			ClientHttpRequest request = createRequest(url, method);
+			ClientHttpRequest2 request = createRequest(url, method);
 			if (requestCallback != null) {
 				requestCallback.doWithRequest(request);
 			}
@@ -496,7 +496,7 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 	/**
 	 * Request callback implementation that prepares the request's accept headers.
 	 */
-	private class AcceptHeaderRequestCallback implements RequestCallback {
+	private class AcceptHeaderRequestCallback implements RequestCallback2 {
 
 		private final Class<?> responseType;
 
@@ -505,7 +505,7 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 		}
 
 		@SuppressWarnings("unchecked")
-		public void doWithRequest(ClientHttpRequest request) throws IOException {
+		public void doWithRequest(ClientHttpRequest2 request) throws IOException {
 			if (responseType != null) {
 				List<MediaType> allSupportedMediaTypes = new ArrayList<MediaType>();
 				for (HttpMessageConverter<?> messageConverter : getMessageConverters()) {
@@ -559,7 +559,7 @@ public class RestTemplateExt extends InterceptingHttpAccessor implements RestOpe
 
 		@Override
 		@SuppressWarnings("unchecked")
-		public void doWithRequest(ClientHttpRequest httpRequest) throws IOException {
+		public void doWithRequest(ClientHttpRequest2 httpRequest) throws IOException {
 			super.doWithRequest(httpRequest);
 			if (!requestEntity.hasBody()) {
 				HttpHeaders httpHeaders = httpRequest.getHeaders();

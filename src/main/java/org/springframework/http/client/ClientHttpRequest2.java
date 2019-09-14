@@ -18,27 +18,27 @@ package org.springframework.http.client;
 
 import java.io.IOException;
 
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpRequest2;
 
 /**
- * Represents the context of a client-side HTTP request execution.
+ * Represents a client-side HTTP request. Created via an implementation of the {@link ClientHttpRequestFactory2}.
  *
- * <p>Used to invoke the next interceptor in the interceptor chain, or - if the calling interceptor is last - execute
- * the request itself.
+ * <p>A <code>HttpRequest</code> can be {@linkplain #execute() executed}, getting a {@link ClientHttpResponse}
+ * which can be read from.
  *
  * @author Arjen Poutsma
- * @see ClientHttpRequestInterceptor
- * @since 3.1
+ * @since 3.0
+ * @see ClientHttpRequestFactory2#createRequest(java.net.URI, HttpMethod)
  */
-public interface ClientHttpRequestExecution {
+public interface ClientHttpRequest2 extends HttpRequest2, HttpOutputMessage {
 
 	/**
-	 * Execute the request with the given request attributes and body, and return the response.
-	 *
-	 * @param request the request, containing method, URI, and headers
-	 * @param body the body of the request to execute
-	 * @return the response
+	 * Execute this request, resulting in a {@link ClientHttpResponse} that can be read.
+	 * @return the response result of the execution
 	 * @throws IOException in case of I/O errors
 	 */
-	ClientHttpResponse execute(HttpRequest2 request, byte[] body) throws IOException;
-}
+	ClientHttpResponse execute() throws IOException;
+
+} 

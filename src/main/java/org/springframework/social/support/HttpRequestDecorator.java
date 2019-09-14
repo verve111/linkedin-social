@@ -16,7 +16,7 @@
 package org.springframework.social.support;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpRequest2;
 import org.springframework.http.client.support.HttpRequestWrapper;
 
 /**
@@ -29,17 +29,13 @@ public class HttpRequestDecorator extends HttpRequestWrapper {
 
 	private boolean existingHeadersAdded;
 	
-	public HttpRequestDecorator(HttpRequest request) {
+	public HttpRequestDecorator(HttpRequest2 request) {
 		super(request);
 	}
 	
 	public HttpHeaders getHeaders() {
 		if (!existingHeadersAdded) {
 			this.httpHeaders = new HttpHeaders();
-			System.out.println("__23__"+  getRequest().getClass().getName());
-			System.out.println("b invoke start");
-			getRequest().b();
-			System.out.println("b invoked succ");
 			httpHeaders.putAll(getRequest().getHeaders());
 			existingHeadersAdded = true;
 		}

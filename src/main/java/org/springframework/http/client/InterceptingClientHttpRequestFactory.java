@@ -23,7 +23,7 @@ import java.util.List;
 import org.springframework.http.HttpMethod;
 
 /**
- * Wrapper for a {@link ClientHttpRequestFactory} that has support for {@link ClientHttpRequestInterceptor}s.
+ * Wrapper for a {@link ClientHttpRequestFactory2} that has support for {@link ClientHttpRequestInterceptor}s.
  *
  * @author Arjen Poutsma
  * @since 3.1
@@ -38,18 +38,15 @@ public class InterceptingClientHttpRequestFactory extends AbstractClientHttpRequ
 	 * @param requestFactory the request factory to wrap
 	 * @param interceptors the interceptors that are to be applied. Can be {@code null}.
 	 */
-	public InterceptingClientHttpRequestFactory(ClientHttpRequestFactory requestFactory,
+	public InterceptingClientHttpRequestFactory(ClientHttpRequestFactory2 requestFactory,
 			List<ClientHttpRequestInterceptor> interceptors) {
 		super(requestFactory);
 		this.interceptors = interceptors != null ? interceptors : Collections.<ClientHttpRequestInterceptor>emptyList();
 	}
 
 	@Override
-	protected ClientHttpRequest createRequest(URI uri, HttpMethod httpMethod, ClientHttpRequestFactory requestFactory) {
-		InterceptingClientHttpRequest i = new InterceptingClientHttpRequest(requestFactory, interceptors, uri, httpMethod);
-		i.a();
-		i.d();
-		i.b();
+	protected ClientHttpRequest2 createRequest(URI uri, HttpMethod httpMethod, ClientHttpRequestFactory2 requestFactory) {
+		InterceptingClientHttpRequest2 i = new InterceptingClientHttpRequest2(requestFactory, interceptors, uri, httpMethod);
 		return i;
 	}
 }

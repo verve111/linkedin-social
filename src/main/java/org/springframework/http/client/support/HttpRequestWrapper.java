@@ -20,19 +20,19 @@ import java.net.URI;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpRequest2;
 import org.springframework.util.Assert;
 
 /**
- * Provides a convenient implementation of the {@link HttpRequest} interface that can be overridden to adapt the
+ * Provides a convenient implementation of the {@link HttpRequest2} interface that can be overridden to adapt the
  * request. Methods default to calling through to the wrapped request object.
  *
  * @author Arjen Poutsma
  * @since 3.1
  */
-public class HttpRequestWrapper implements HttpRequest {
+public class HttpRequestWrapper implements HttpRequest2 {
 
-	private final HttpRequest request;
+	private final HttpRequest2 request;
 
 
 	/**
@@ -40,7 +40,7 @@ public class HttpRequestWrapper implements HttpRequest {
 	 *
 	 * @param request the request object to be wrapped
 	 */
-	public HttpRequestWrapper(HttpRequest request) {
+	public HttpRequestWrapper(HttpRequest2 request) {
 		Assert.notNull(request, "'request' must not be null");
 		this.request = request;
 	}
@@ -48,7 +48,7 @@ public class HttpRequestWrapper implements HttpRequest {
 	/**
 	 * Returns the wrapped request.
 	 */
-	public HttpRequest getRequest() {
+	public HttpRequest2 getRequest() {
 		return request;
 	}
 
@@ -73,9 +73,4 @@ public class HttpRequestWrapper implements HttpRequest {
 		return this.request.getHeaders();
 	}
 	
-
-	public void b() {
-		
-	}
-
 }

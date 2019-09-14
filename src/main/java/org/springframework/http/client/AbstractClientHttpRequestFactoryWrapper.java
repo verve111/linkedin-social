@@ -23,37 +23,37 @@ import org.springframework.http.HttpMethod;
 import org.springframework.util.Assert;
 
 /**
- * Abstract base class for {@link ClientHttpRequestFactory} implementations that decorate another request factory.
+ * Abstract base class for {@link ClientHttpRequestFactory2} implementations that decorate another request factory.
  *
  * @author Arjen Poutsma
  * @since 3.1
  */
-public abstract class AbstractClientHttpRequestFactoryWrapper implements ClientHttpRequestFactory {
+public abstract class AbstractClientHttpRequestFactoryWrapper implements ClientHttpRequestFactory2 {
 
-	private final ClientHttpRequestFactory requestFactory;
+	private final ClientHttpRequestFactory2 requestFactory;
 
 
 	/**
 	 * Creates a {@code AbstractClientHttpRequestFactoryWrapper} wrapping the given request factory.
 	 * @param requestFactory the request factory to be wrapped
 	 */
-	protected AbstractClientHttpRequestFactoryWrapper(ClientHttpRequestFactory requestFactory) {
+	protected AbstractClientHttpRequestFactoryWrapper(ClientHttpRequestFactory2 requestFactory) {
 		Assert.notNull(requestFactory, "'requestFactory' must not be null");
 		this.requestFactory = requestFactory;
 	}
 
 
 	/**
-	 * This implementation simply calls {@link #createRequest(URI, HttpMethod, ClientHttpRequestFactory)}
+	 * This implementation simply calls {@link #createRequest(URI, HttpMethod, ClientHttpRequestFactory2)}
 	 * with the wrapped request factory provided to the
-	 * {@linkplain #AbstractClientHttpRequestFactoryWrapper(ClientHttpRequestFactory) constructor}.
+	 * {@linkplain #AbstractClientHttpRequestFactoryWrapper(ClientHttpRequestFactory2) constructor}.
 	 */
-	public final ClientHttpRequest createRequest(URI uri, HttpMethod httpMethod) throws IOException {
+	public final ClientHttpRequest2 createRequest(URI uri, HttpMethod httpMethod) throws IOException {
 		return createRequest(uri, httpMethod, requestFactory);
 	}
 
 	/**
-	 * Create a new {@link ClientHttpRequest} for the specified URI and HTTP method by using the
+	 * Create a new {@link ClientHttpRequest2} for the specified URI and HTTP method by using the
 	 * passed-on request factory.
 	 * <p>Called from {@link #createRequest(URI, HttpMethod)}.
 	 * @param uri the URI to create a request for
@@ -62,7 +62,7 @@ public abstract class AbstractClientHttpRequestFactoryWrapper implements ClientH
 	 * @return the created request
 	 * @throws IOException in case of I/O errors
 	 */
-	protected abstract ClientHttpRequest createRequest(
-			URI uri, HttpMethod httpMethod, ClientHttpRequestFactory requestFactory) throws IOException;
+	protected abstract ClientHttpRequest2 createRequest(
+			URI uri, HttpMethod httpMethod, ClientHttpRequestFactory2 requestFactory) throws IOException;
 
 }

@@ -21,14 +21,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.ApiBinding;
-import org.springframework.social.support.ClientHttpRequestFactorySelector;
+import org.springframework.social.support.ClientHttpRequestFactorySelector2;
 import org.springframework.web.client.RestTemplateExt;
 
 /**
@@ -46,7 +46,7 @@ public abstract class AbstractOAuth2ApiBinding implements ApiBinding {
 	 */
 	protected AbstractOAuth2ApiBinding() {
 		accessToken = null;
-		restTemplate = new RestTemplateExt(ClientHttpRequestFactorySelector.getRequestFactory());
+		restTemplate = new RestTemplateExt(ClientHttpRequestFactorySelector2.getRequestFactory());
 		restTemplate.setMessageConverters(getMessageConverters());
 		configureRestTemplate(restTemplate);
 	}
@@ -66,7 +66,7 @@ public abstract class AbstractOAuth2ApiBinding implements ApiBinding {
 	 * Set the ClientHttpRequestFactory. This is useful when custom configuration of the request factory is required, such as configuring custom SSL details.
 	 * @param requestFactory the request factory
 	 */
-	public void setRequestFactory(ClientHttpRequestFactory requestFactory) {
+	public void setRequestFactory(ClientHttpRequestFactory2 requestFactory) {
 		if (isAuthorized()) {
 			restTemplate.setRequestFactory(ProtectedResourceClientFactory.addOAuthSigning(requestFactory, accessToken, getOAuth2Version()));
 		} else {

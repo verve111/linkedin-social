@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2009 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,28 @@
 package org.springframework.http.client;
 
 import java.io.IOException;
+import java.net.URI;
 
-import org.springframework.http.HttpRequest2;
+import org.springframework.http.HttpMethod;
 
 /**
- * Represents the context of a client-side HTTP request execution.
- *
- * <p>Used to invoke the next interceptor in the interceptor chain, or - if the calling interceptor is last - execute
- * the request itself.
+ * Factory for {@link ClientHttpRequest} objects.
+ * Requests are created by the {@link #createRequest(URI, HttpMethod)} method.
  *
  * @author Arjen Poutsma
- * @see ClientHttpRequestInterceptor
- * @since 3.1
+ * @since 3.0
  */
-public interface ClientHttpRequestExecution {
+public interface ClientHttpRequestFactory2 {
 
 	/**
-	 * Execute the request with the given request attributes and body, and return the response.
-	 *
-	 * @param request the request, containing method, URI, and headers
-	 * @param body the body of the request to execute
-	 * @return the response
+	 * Create a new {@link ClientHttpRequest} for the specified URI and HTTP method.
+	 * <p>The returned request can be written to, and then executed by calling
+	 * {@link ClientHttpRequest#execute()}.
+	 * @param uri the URI to create a request for
+	 * @param httpMethod the HTTP method to execute
+	 * @return the created request
 	 * @throws IOException in case of I/O errors
 	 */
-	ClientHttpResponse execute(HttpRequest2 request, byte[] body) throws IOException;
+	ClientHttpRequest2 createRequest(URI uri, HttpMethod httpMethod) throws IOException;
+
 }

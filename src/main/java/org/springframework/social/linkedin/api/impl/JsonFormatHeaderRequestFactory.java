@@ -22,32 +22,32 @@ import java.net.URI;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequest2;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.client.ClientHttpResponse;
 
 /**
  * @author Craig Walls
  */
-class JsonFormatHeaderRequestFactory implements ClientHttpRequestFactory {
+class JsonFormatHeaderRequestFactory implements ClientHttpRequestFactory2 {
 	
-	private final ClientHttpRequestFactory delegate;
+	private final ClientHttpRequestFactory2 delegate;
 
-	public JsonFormatHeaderRequestFactory(ClientHttpRequestFactory delegate) {
+	public JsonFormatHeaderRequestFactory(ClientHttpRequestFactory2 delegate) {
 		this.delegate = delegate;
 	}
 
-	public ClientHttpRequest createRequest(URI uri, HttpMethod httpMethod) throws IOException {
+	public ClientHttpRequest2 createRequest(URI uri, HttpMethod httpMethod) throws IOException {
 		return new JsonFormatWrappedRequest(delegate.createRequest(uri, httpMethod));
 	}	
 
-	private static class JsonFormatWrappedRequest implements ClientHttpRequest {
+	private static class JsonFormatWrappedRequest implements ClientHttpRequest2 {
 		
-		private final ClientHttpRequest delegate;
+		private final ClientHttpRequest2 delegate;
 		
 		private ByteArrayOutputStream bodyOutputStream;
 				
-		public JsonFormatWrappedRequest(ClientHttpRequest delegate) {
+		public JsonFormatWrappedRequest(ClientHttpRequest2 delegate) {
 			this.delegate = delegate;
 			this.bodyOutputStream = new ByteArrayOutputStream();
 		}

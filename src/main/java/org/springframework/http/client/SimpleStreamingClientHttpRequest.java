@@ -29,14 +29,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
 /**
- * {@link ClientHttpRequest} implementation that uses standard J2SE facilities to execute streaming requests.
+ * {@link ClientHttpRequest2} implementation that uses standard J2SE facilities to execute streaming requests.
  * Created via the {@link SimpleClientHttpRequestFactory}.
  *
  * @author Arjen Poutsma
  * @since 3.0
  * @see SimpleClientHttpRequestFactory#createRequest(java.net.URI, HttpMethod)
  */
-final class SimpleStreamingClientHttpRequest extends AbstractClientHttpRequest {
+final class SimpleStreamingClientHttpRequest extends AbstractClientHttpRequest2 {
 
 	private final HttpURLConnection connection;
 

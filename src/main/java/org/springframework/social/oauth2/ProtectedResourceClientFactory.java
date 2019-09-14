@@ -19,9 +19,9 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.social.support.ClientHttpRequestFactorySelector;
+import org.springframework.social.support.ClientHttpRequestFactorySelector2;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.client.RestTemplateExt;
 
@@ -53,7 +53,7 @@ class ProtectedResourceClientFactory {
 	}
 
 	public static RestTemplateExt create(String accessToken, OAuth2Version version) {
-		RestTemplateExt client = new RestTemplateExt(ClientHttpRequestFactorySelector.getRequestFactory());
+		RestTemplateExt client = new RestTemplateExt(ClientHttpRequestFactorySelector2.getRequestFactory());
 		if (interceptorsSupported) {
 			// favored
 			OAuth2RequestInterceptor interceptor = new OAuth2RequestInterceptor(accessToken, version);
@@ -73,7 +73,7 @@ class ProtectedResourceClientFactory {
 		return client;				
 	}
 
-	public static ClientHttpRequestFactory addOAuthSigning(ClientHttpRequestFactory requestFactory, String accessToken, OAuth2Version version) {
+	public static ClientHttpRequestFactory2 addOAuthSigning(ClientHttpRequestFactory2 requestFactory, String accessToken, OAuth2Version version) {
 		if (interceptorsSupported) {
 			return requestFactory;
 		}

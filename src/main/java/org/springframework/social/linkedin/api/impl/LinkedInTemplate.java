@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpRequest2;
 import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -150,7 +150,7 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 			interceptors.add(new JsonFormatInterceptor());
 		} else {
 			// for Spring 3.0.x where interceptors aren't supported
-			ClientHttpRequestFactory originalRequestFactory = restTemplate.getRequestFactory();
+			ClientHttpRequestFactory2 originalRequestFactory = restTemplate.getRequestFactory();
 			JsonFormatHeaderRequestFactory newRequestFactory = new JsonFormatHeaderRequestFactory(originalRequestFactory);
 			restTemplate.setRequestFactory(newRequestFactory);
 		}
@@ -187,9 +187,9 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 	static final String BASE_URL = "https://api.linkedin.com/v1/people/";
 	
 	private static final class JsonFormatInterceptor implements ClientHttpRequestInterceptor {
-		public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+		public ClientHttpResponse intercept(HttpRequest2 request, byte[] body,
 				ClientHttpRequestExecution execution) throws IOException {
-			HttpRequest contentTypeResourceRequest = new HttpRequestDecorator(request);
+			HttpRequest2 contentTypeResourceRequest = new HttpRequestDecorator(request);
 			contentTypeResourceRequest.getHeaders().add("x-li-format", "json");
 			return execution.execute(contentTypeResourceRequest, body);
 		}
@@ -203,11 +203,12 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 			this.accessToken = accessToken;
 		}
 		
-		public ClientHttpResponse intercept(final HttpRequest request, final byte[] body, ClientHttpRequestExecution execution) throws IOException {
-			HttpRequest protectedResourceRequest = new HttpRequestDecorator(request) {
+		public ClientHttpResponse intercept(final HttpRequest2 request, final byte[] body, ClientHttpRequestExecution execution) throws IOException {
+			HttpRequest2 protectedResourceRequest = new HttpRequestDecorator(request) {
 				@Override
 				public URI getURI() {
-					return URI.create(super.getURI().toString() + (((super.getURI().getQuery() == null) ? "?" : "&") + "oauth2_access_token=" + accessToken));
+					// lss: we don't need postfix (see https://github.com/ashwinks/PHP-LinkedIn-SDK/issues/25)
+					return URI.create(super.getURI().toString() /*+ (((super.getURI().getQuery() == null) ? "?" : "&") + "oauth2_access_token=" + accessToken)*/);
 				}
 			};
 

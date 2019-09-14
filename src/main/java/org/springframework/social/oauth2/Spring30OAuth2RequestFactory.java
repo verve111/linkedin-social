@@ -22,8 +22,8 @@ import java.net.URI;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequest2;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.client.ClientHttpResponse;
 
 /**
@@ -32,27 +32,27 @@ import org.springframework.http.client.ClientHttpResponse;
  * Planned for removal in Spring Social 1.1.
  * @author Craig Walls
  */
-class Spring30OAuth2RequestFactory implements ClientHttpRequestFactory {
+class Spring30OAuth2RequestFactory implements ClientHttpRequestFactory2 {
 	
-	private final ClientHttpRequestFactory delegate;
+	private final ClientHttpRequestFactory2 delegate;
 	
 	private final String accessToken;
 	
 	private final OAuth2Version oauth2Version;
 
-	public Spring30OAuth2RequestFactory(ClientHttpRequestFactory delegate, String accessToken, OAuth2Version oauth2Version) {
+	public Spring30OAuth2RequestFactory(ClientHttpRequestFactory2 delegate, String accessToken, OAuth2Version oauth2Version) {
 		this.delegate = delegate;
 		this.accessToken = accessToken;
 		this.oauth2Version = oauth2Version;
 	}
 
-	public ClientHttpRequest createRequest(URI uri, HttpMethod httpMethod) throws IOException {
+	public ClientHttpRequest2 createRequest(URI uri, HttpMethod httpMethod) throws IOException {
 		return new OAuth2SigningRequest(delegate.createRequest(uri, httpMethod), accessToken, oauth2Version);
 	}	
 
-	private static class OAuth2SigningRequest implements ClientHttpRequest {
+	private static class OAuth2SigningRequest implements ClientHttpRequest2 {
 		
-		private final ClientHttpRequest delegate;
+		private final ClientHttpRequest2 delegate;
 
 		private ByteArrayOutputStream bodyOutputStream;
 		
@@ -60,7 +60,7 @@ class Spring30OAuth2RequestFactory implements ClientHttpRequestFactory {
 		
 		private final OAuth2Version oauth2Version;
 
-		public OAuth2SigningRequest(ClientHttpRequest delegate, String accessToken, OAuth2Version oauth2Version) {
+		public OAuth2SigningRequest(ClientHttpRequest2 delegate, String accessToken, OAuth2Version oauth2Version) {
 			this.delegate = delegate;
 			this.accessToken = accessToken;
 			this.oauth2Version = oauth2Version;

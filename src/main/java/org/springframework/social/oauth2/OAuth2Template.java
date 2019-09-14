@@ -23,11 +23,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestFactory2;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.social.support.ClientHttpRequestFactorySelector;
+import org.springframework.social.support.ClientHttpRequestFactorySelector2;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -105,7 +105,7 @@ public class OAuth2Template implements OAuth2Operations {
 	 * Set the request factory on the underlying RestTemplate.
 	 * This can be used to plug in a different HttpClient to do things like configure custom SSL settings.
 	 */
-	public void setRequestFactory(ClientHttpRequestFactory requestFactory) {
+	public void setRequestFactory(ClientHttpRequestFactory2 requestFactory) {
 		Assert.notNull(requestFactory, "The requestFactory property cannot be null");
 		getRestTemplate().setRequestFactory(requestFactory);
 	}
@@ -200,7 +200,7 @@ public class OAuth2Template implements OAuth2Operations {
 	 * For example, if the provider returns data in some format other than JSON for form-encoded, you might override to register an appropriate message converter. 
 	 */
 	protected RestTemplateExt createRestTemplate() {
-		ClientHttpRequestFactory requestFactory = ClientHttpRequestFactorySelector.getRequestFactory();
+		ClientHttpRequestFactory2 requestFactory = ClientHttpRequestFactorySelector2.getRequestFactory();
 		RestTemplateExt restTemplate = new RestTemplateExt(requestFactory);
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>(2);
 		converters.add(new FormHttpMessageConverter());
