@@ -17,6 +17,12 @@ package org.springframework.social.linkedin.api;
 
 import java.io.Serializable;
 
+import org.springframework.social.linkedin.api.impl.mapped.FirstName;
+import org.springframework.social.linkedin.api.impl.mapped.LastName;
+import org.springframework.social.linkedin.api.impl.mapped.ProfilePicture;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Model class containing a user's LinkedIn profile information.
  * 
@@ -28,9 +34,11 @@ public class LinkedInProfile extends LinkedInObject implements Serializable {
 
 	private final String id;
 	
-	private final String firstName;
+	@JsonProperty("firstName")
+	private final FirstName firstName;
 	
-	private final String lastName;
+	@JsonProperty("lastName")
+	private final LastName lastName;
 	
 	private final String headline;
 	
@@ -38,25 +46,33 @@ public class LinkedInProfile extends LinkedInObject implements Serializable {
 
 	private String emailAddress;
 	
-	private final UrlResource siteStandardProfileRequest;
+	private String localizedLastName;
+	private String localizedFirstName;
 	
 	private final String publicProfileUrl;
 	
-	private final String profilePictureUrl;
-	
+	private final ProfilePicture profilePicture;
 	private String summary;
 	
-	private ConnectionAuthorization connectionAuthorization;
+	public LinkedInProfile() {
+		this.id = "dummy";
+		this.firstName = null;
+		this.lastName = null;
+		this.headline = "dummy";
+		this.industry = "dummy";
+		this.publicProfileUrl = "dummy";
+		this.profilePicture = null;		
+	}
 	
-	public LinkedInProfile(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+	public LinkedInProfile(String id, FirstName firstName, LastName lastName, String headline, String industry,
+			String publicProfileUrl, ProfilePicture profilePicture) {
 		this.id = id;
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.lastName = null;
 		this.headline = headline;
 		this.industry = industry;
 		this.publicProfileUrl = publicProfileUrl;
-		this.siteStandardProfileRequest = siteStandardProfileRequest;
-		this.profilePictureUrl = profilePictureUrl;
+		this.profilePicture = profilePicture;
 	}
 
 	/**
@@ -69,14 +85,14 @@ public class LinkedInProfile extends LinkedInObject implements Serializable {
 	/**
 	 * The user's first name
 	 */
-	public String getFirstName() {
+	public FirstName getFirstName() {
 		return firstName;
 	}
 
 	/**
 	 * The user's last name
 	 */
-	public String getLastName() {
+	public LastName getLastName() {
 		return lastName;
 	}
 
@@ -103,13 +119,6 @@ public class LinkedInProfile extends LinkedInObject implements Serializable {
 	}
 
 	/**
-	 * A URL to the user's standard profile. The content shown at this profile will depend upon what the requesting user is allowed to see.
-	 */
-	public UrlResource getSiteStandardProfileRequest() {
-		return siteStandardProfileRequest;
-	}
-
-	/**
 	 * A URL to the user's public profile. The content shown at this profile is intended for public display and is determined by the user's privacy settings.
 	 * May be null if the user's profile isn't public.
 	 */
@@ -120,8 +129,8 @@ public class LinkedInProfile extends LinkedInObject implements Serializable {
 	/**
 	 * A URL to the user's profile picture.
 	 */
-	public String getProfilePictureUrl() {
-		return profilePictureUrl;
+	public ProfilePicture getProfilePicture() {
+		return profilePicture;
 	}
 	
 	/**
@@ -130,12 +139,15 @@ public class LinkedInProfile extends LinkedInObject implements Serializable {
 	public String getSummary() {
 		return summary;
 	}
-	
-	/**
-	 * @return Authorization information required for connecting to this user.
-	 */
-	public ConnectionAuthorization getConnectionAuthorization() {
-		return connectionAuthorization;
+
+	public String getLocalizedLastName() {
+		return localizedLastName;
 	}
+
+	public String getLocalizedFirstName() {
+		return localizedFirstName;
+	}
+	
+
 
 }

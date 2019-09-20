@@ -22,7 +22,7 @@ import java.util.List;
  * 
  * @author Robert Drysdale
  */
-public class UpdateContentRecommendation extends UpdateContent {
+public class UpdateContentRecommendation /*extends UpdateContent*/ {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,9 +30,9 @@ public class UpdateContentRecommendation extends UpdateContent {
 	
 	private List<Recommendation> recommendationsReceived;
 	
-	public UpdateContentRecommendation(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+	/*public UpdateContentRecommendation(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
-	}
+	}*/
 	
 	public List<Recommendation> getRecommendationsGiven() {
 		return recommendationsGiven;

@@ -20,15 +20,15 @@ package org.springframework.social.linkedin.api;
  * 
  * @author Robert Drysdale
  */
-public class UpdateContentViral extends UpdateContent {
+public class UpdateContentViral /*extends UpdateContent*/ {
 
 	private static final long serialVersionUID = 1L;
 	
 	private UpdateAction updateAction;
 	
-	public UpdateContentViral(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+	/*public UpdateContentViral(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
-	}
+	}*/
 	
 	public UpdateAction getUpdateAction() {
 		return updateAction;

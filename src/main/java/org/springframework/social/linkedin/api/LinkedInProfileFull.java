@@ -17,6 +17,10 @@ package org.springframework.social.linkedin.api;
 
 import java.util.List;
 
+import org.springframework.social.linkedin.api.impl.mapped.FirstName;
+import org.springframework.social.linkedin.api.impl.mapped.LastName;
+import org.springframework.social.linkedin.api.impl.mapped.ProfilePicture;
+
 
 /**
  * Full LinkedInProfile returned by querying profile
@@ -74,12 +78,12 @@ public class LinkedInProfileFull extends LinkedInProfile {
 	private CurrentShare currentShare;
 	
 	private Relation relationToViewer;
-
-	public LinkedInProfileFull(String id, String firstName, String lastName,
+	
+	public LinkedInProfileFull(String id, FirstName firstName, LastName lastName,
 			String headline, String industry, String publicProfileUrl,
-			UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+			ProfilePicture profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl,
-				siteStandardProfileRequest, profilePictureUrl);
+				profilePictureUrl);
 	}
 
 	public List<Position> getPositions() {

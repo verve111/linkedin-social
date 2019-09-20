@@ -22,15 +22,15 @@ import java.util.List;
  * 
  * @author Robert Drysdale
  */
-public class UpdateContentConnection extends UpdateContent {
+public class UpdateContentConnection /*extends UpdateContent*/ {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private List<LinkedInProfile> connections;
 	
-	public UpdateContentConnection(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+	/*public UpdateContentConnection(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
-	}
+	}*/
 	
 	public List<LinkedInProfile> getConnections() {
 		return connections;

@@ -20,15 +20,15 @@ package org.springframework.social.linkedin.api;
  * 
  * @author Robert Drysdale
  */
-public class UpdateContentStatus extends UpdateContent {
+public class UpdateContentStatus /*extends UpdateContent*/ {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String currentStatus;
 	
-	public UpdateContentStatus(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+	/*public UpdateContentStatus(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
-	}
+	}*/
 	
 	public String getCurrentStatus() {
 		return currentStatus;

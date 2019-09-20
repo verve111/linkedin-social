@@ -17,12 +17,14 @@
 package org.springframework.web.client;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.springframework.http.HttpEntity;
@@ -133,12 +135,6 @@ public class RestTemplateExt extends InterceptingHttpAccessor2 implements RestOp
 
 	private ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler();
 	
-	public void a() {
-		logger.info("dd");
-		
-	}
-
-
 	/** Create a new instance of the {@link RestTemplate} using default settings. */
 	public RestTemplateExt() {
 		this.messageConverters.add(new ByteArrayHttpMessageConverter());

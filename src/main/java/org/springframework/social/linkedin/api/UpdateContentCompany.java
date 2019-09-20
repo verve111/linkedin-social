@@ -20,7 +20,7 @@ package org.springframework.social.linkedin.api;
  * 
  * @author Robert Drysdale
  */
-public class UpdateContentCompany extends UpdateContent {
+public class UpdateContentCompany /* extends UpdateContent*/ {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,9 +30,9 @@ public class UpdateContentCompany extends UpdateContent {
 	
 	private Company company;
 	
-	public UpdateContentCompany(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+	/*public UpdateContentCompany(String id, String firstName, String lastName, String headline, String industry, String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
-	}
+	}*/
 	
 	public Share getCompanyStatusUpdate() {
 		return companyStatusUpdate;

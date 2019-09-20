@@ -15,6 +15,10 @@
  */
 package org.springframework.social.linkedin.api;
 
+import org.springframework.social.linkedin.api.impl.mapped.FirstName;
+import org.springframework.social.linkedin.api.impl.mapped.LastName;
+import org.springframework.social.linkedin.api.impl.mapped.ProfilePicture;
+
 /**
  * Base class of Updated Content
  * 
@@ -24,11 +28,11 @@ public class UpdateContent extends LinkedInProfile {
 
 	private static final long serialVersionUID = 1L;
 	
-	public UpdateContent(String id, String firstName, String lastName,
+	public UpdateContent(String id, FirstName firstName, LastName lastName,
 			String headline, String industry, String publicProfileUrl,
-			UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+			ProfilePicture profilePictureUrl) {
 		super(id, firstName, lastName, headline, industry, publicProfileUrl,
-				siteStandardProfileRequest, profilePictureUrl);
+				profilePictureUrl);
 	}
 
 }
