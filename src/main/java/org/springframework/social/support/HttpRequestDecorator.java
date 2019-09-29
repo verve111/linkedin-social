@@ -17,13 +17,13 @@ package org.springframework.social.support;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest2;
-import org.springframework.http.client.support.HttpRequestWrapper;
+import org.springframework.http.client.support.HttpRequestWrapper2;
 
 /**
  * Extension of HttpRequestWrapper that supports adding new HttpHeaders to the wrapped HttpRequest.
  * @author Keith Donald
  */
-public class HttpRequestDecorator extends HttpRequestWrapper {
+public class HttpRequestDecorator extends HttpRequestWrapper2 {
 
 	private HttpHeaders httpHeaders;
 

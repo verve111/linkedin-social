@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @author Arjen Poutsma
  * @since 3.1
  */
-public class HttpRequestWrapper implements HttpRequest2 {
+public class HttpRequestWrapper2 implements HttpRequest2 {
 
 	private final HttpRequest2 request;
 
@@ -40,7 +40,7 @@ public class HttpRequestWrapper implements HttpRequest2 {
 	 *
 	 * @param request the request object to be wrapped
 	 */
-	public HttpRequestWrapper(HttpRequest2 request) {
+	public HttpRequestWrapper2(HttpRequest2 request) {
 		Assert.notNull(request, "'request' must not be null");
 		this.request = request;
 	}

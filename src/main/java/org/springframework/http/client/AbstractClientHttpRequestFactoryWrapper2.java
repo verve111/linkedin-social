@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
  * @author Arjen Poutsma
  * @since 3.1
  */
-public abstract class AbstractClientHttpRequestFactoryWrapper implements ClientHttpRequestFactory2 {
+public abstract class AbstractClientHttpRequestFactoryWrapper2 implements ClientHttpRequestFactory2 {
 
 	private final ClientHttpRequestFactory2 requestFactory;
 
@@ -37,7 +37,7 @@ public abstract class AbstractClientHttpRequestFactoryWrapper implements ClientH
 	 * Creates a {@code AbstractClientHttpRequestFactoryWrapper} wrapping the given request factory.
 	 * @param requestFactory the request factory to be wrapped
 	 */
-	protected AbstractClientHttpRequestFactoryWrapper(ClientHttpRequestFactory2 requestFactory) {
+	protected AbstractClientHttpRequestFactoryWrapper2(ClientHttpRequestFactory2 requestFactory) {
 		Assert.notNull(requestFactory, "'requestFactory' must not be null");
 		this.requestFactory = requestFactory;
 	}

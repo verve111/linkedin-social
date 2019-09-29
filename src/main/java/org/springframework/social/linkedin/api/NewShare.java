@@ -26,45 +26,86 @@ public class NewShare implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String comment;
+	//private String comment;
 	
-	private NewShareContent content;
+	private Text text;
 	
-	private NewShareVisibility visibility;
+	private String owner;
+	
+	public static final String OWNER_PREFIX = "urn:li:person:";
+	
+	//private NewShareContent content;
+	
+	//private NewShareVisibility visibility;
 	
 	public NewShare() {}
-	
-	public NewShare(String comment, NewShareContent content, NewShareVisibility visibility) {
-		this.comment = comment;
-		this.content = content;
-		this.visibility = visibility;
+		
+	// api v2 constructor
+	public NewShare(Text text, String owner) {
+		this.text = text;
+		this.owner = OWNER_PREFIX + owner;
 	}
 	
-	public String getComment() {
+	/*public String getComment() {
 		return comment;
 	}
 	
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
+	}*/
 	
-	public NewShareContent getContent() {
+	/*public NewShareContent getContent() {
 		return content;
 	}
 	
 	public void setContent(NewShareContent content) {
 		this.content = content;
-	}
+	}*/
 	
-	public NewShareVisibility getVisibility() {
+	public Text getText() {
+		return text;
+	}
+
+	public void setText(Text text) {
+		this.text = text;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = OWNER_PREFIX + owner;
+	}
+
+	/*public NewShareVisibility getVisibility() {
 		return visibility;
 	}
 	
 	public void setVisibility(NewShareVisibility visibility) {
 		this.visibility = visibility;
+	}*/
+	
+	public static class Text implements Serializable {
+		private static final long serialVersionUID = 1L;
+		private String text;
+		
+		public Text() {}
+		
+		public Text(String text) {
+			this.text = text;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
 	}
 	
-	public static class NewShareContent implements Serializable {
+	/*public static class NewShareContent implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
 		private String title;
@@ -145,6 +186,6 @@ public class NewShare implements Serializable {
 		public String toString() {
 			return this.name().toLowerCase().replace('_', '-');
 		}
-	}
+	}*/
 
 }

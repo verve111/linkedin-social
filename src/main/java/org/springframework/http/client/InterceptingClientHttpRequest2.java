@@ -27,7 +27,7 @@ import org.springframework.http.HttpRequest2;
 import org.springframework.util.FileCopyUtils;
 
 /**
- * Wrapper for a {@link ClientHttpRequest2} that has support for {@link ClientHttpRequestInterceptor}s.
+ * Wrapper for a {@link ClientHttpRequest2} that has support for {@link ClientHttpRequestInterceptor2}s.
  *
  * @author Arjen Poutsma
  * @since 3.1
@@ -36,14 +36,14 @@ class InterceptingClientHttpRequest2 extends AbstractBufferingClientHttpRequest2
 
 	private final ClientHttpRequestFactory2 requestFactory;
 
-	private final List<ClientHttpRequestInterceptor> interceptors;
+	private final List<ClientHttpRequestInterceptor2> interceptors;
 
 	private HttpMethod method;
 
 	private URI uri;
 
 	protected InterceptingClientHttpRequest2(ClientHttpRequestFactory2 requestFactory,
-			List<ClientHttpRequestInterceptor> interceptors,
+			List<ClientHttpRequestInterceptor2> interceptors,
 			URI uri,
 			HttpMethod method) {
 		this.requestFactory = requestFactory;
@@ -66,9 +66,9 @@ class InterceptingClientHttpRequest2 extends AbstractBufferingClientHttpRequest2
 		return requestExecution.execute(this, bufferedOutput);
 	}
 
-	private class RequestExecution implements ClientHttpRequestExecution {
+	private class RequestExecution implements ClientHttpRequestExecution2 {
 
-		private final Iterator<ClientHttpRequestInterceptor> iterator;
+		private final Iterator<ClientHttpRequestInterceptor2> iterator;
 
 		private RequestExecution() {
 			this.iterator = interceptors.iterator();
@@ -76,7 +76,7 @@ class InterceptingClientHttpRequest2 extends AbstractBufferingClientHttpRequest2
 
 		public ClientHttpResponse execute(HttpRequest2 request, byte[] body) throws IOException {
 			if (iterator.hasNext()) {
-				ClientHttpRequestInterceptor nextInterceptor = iterator.next();
+				ClientHttpRequestInterceptor2 nextInterceptor = iterator.next();
 				return nextInterceptor.intercept(request, body, this);
 			}
 			else {

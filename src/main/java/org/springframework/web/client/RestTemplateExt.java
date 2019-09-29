@@ -34,7 +34,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequest2;
 import org.springframework.http.client.ClientHttpRequestFactory2;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpRequestInterceptor2;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.support.InterceptingHttpAccessor2;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;

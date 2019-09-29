@@ -46,6 +46,7 @@ public class LinkedInErrorHandler extends DefaultResponseErrorHandler {
 			if (message.contains("Throttle")) {
 				throw new RateLimitExceededException();
 			} else {
+				System.out.println("message " + message);
 				throw new InsufficientPermissionException();
 			}
 		} else if (statusCode.equals(HttpStatus.NOT_FOUND)) {

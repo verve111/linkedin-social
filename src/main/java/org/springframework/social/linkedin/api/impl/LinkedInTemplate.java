@@ -20,9 +20,9 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.HttpRequest2;
-import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestExecution2;
 import org.springframework.http.client.ClientHttpRequestFactory2;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpRequestInterceptor2;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -72,8 +72,7 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 	}
 
 	private void registerOAuth2Interceptor(String accessToken) {
-		RestTemplateExt t = getRestTemplate();
-		List<ClientHttpRequestInterceptor> interceptors = getRestTemplate().getInterceptors();
+		List<ClientHttpRequestInterceptor2> interceptors = getRestTemplate().getInterceptors();
 		interceptors.add(new OAuth2TokenParameterRequestInterceptor(accessToken));
 		getRestTemplate().setInterceptors(interceptors);
 	}
@@ -144,7 +143,7 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 	private void registerJsonFormatInterceptor() {		
 		RestTemplateExt restTemplate = getRestTemplate();
 		if (interceptorsSupported) {
-			List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+			List<ClientHttpRequestInterceptor2> interceptors = restTemplate.getInterceptors();
 			interceptors.add(new JsonFormatInterceptor());
 		} else {
 			// for Spring 3.0.x where interceptors aren't supported
@@ -182,11 +181,11 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 	
 	private static boolean interceptorsSupported = ClassUtils.isPresent("org.springframework.http.client.ClientHttpRequestInterceptor", LinkedInTemplate.class.getClassLoader());
 	
-	static final String BASE_URL = "https://api.linkedin.com/v2/me/";
+	static final String BASE_URL = "https://api.linkedin.com/v2/";
 	
-	private static final class JsonFormatInterceptor implements ClientHttpRequestInterceptor {
+	private static final class JsonFormatInterceptor implements ClientHttpRequestInterceptor2 {
 		public ClientHttpResponse intercept(HttpRequest2 request, byte[] body,
-				ClientHttpRequestExecution execution) throws IOException {
+				ClientHttpRequestExecution2 execution) throws IOException {
 			HttpRequest2 contentTypeResourceRequest = new HttpRequestDecorator(request);
 			contentTypeResourceRequest.getHeaders().add("x-li-format", "json");
 			return execution.execute(contentTypeResourceRequest, body);
@@ -194,14 +193,14 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 		
 	}
 	
-	private static final class OAuth2TokenParameterRequestInterceptor implements ClientHttpRequestInterceptor {
+	private static final class OAuth2TokenParameterRequestInterceptor implements ClientHttpRequestInterceptor2 {
 		private final String accessToken;
 		
 		public OAuth2TokenParameterRequestInterceptor(String accessToken) {
 			this.accessToken = accessToken;
 		}
 		
-		public ClientHttpResponse intercept(final HttpRequest2 request, final byte[] body, ClientHttpRequestExecution execution) throws IOException {
+		public ClientHttpResponse intercept(final HttpRequest2 request, final byte[] body, ClientHttpRequestExecution2 execution) throws IOException {
 			HttpRequest2 protectedResourceRequest = new HttpRequestDecorator(request) {
 				@Override
 				public URI getURI() {
@@ -211,7 +210,8 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 			};
 
 			// LinkedIn doesn't accept the OAuth2 Bearer token authorization header.
-			protectedResourceRequest.getHeaders().remove("Authorization"); 
+			// nope, starting from api v2 this param is required
+			//protectedResourceRequest.getHeaders().remove("Authorization"); 
 			return execution.execute(protectedResourceRequest, body);
 		}
 

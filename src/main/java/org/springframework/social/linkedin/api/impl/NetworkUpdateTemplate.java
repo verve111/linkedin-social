@@ -189,7 +189,7 @@ class NetworkUpdateTemplate extends AbstractTemplate implements NetworkUpdateOpe
 
 	static final String CURRENT_SHARE_URL = BASE_URL + "~:(current-share)";
 
-	static final String SHARE_URL = BASE_URL + "~/shares";
+	static final String SHARE_URL = BASE_URL + "shares";
 
 	public static final int DEFAULT_START  = 0;
 

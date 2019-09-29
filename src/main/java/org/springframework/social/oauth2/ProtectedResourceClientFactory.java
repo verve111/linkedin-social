@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.http.client.ClientHttpRequestFactory2;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpRequestInterceptor2;
 import org.springframework.social.support.ClientHttpRequestFactorySelector2;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.client.RestTemplateExt;
@@ -46,7 +46,7 @@ class ProtectedResourceClientFactory {
 				listBasedInterceptors = true;
 			} catch (NoSuchMethodException e) {
 				try {
-					setInterceptorsMethod = RestTemplateExt.class.getMethod("setInterceptors", new ClientHttpRequestInterceptor[0].getClass());
+					setInterceptorsMethod = RestTemplateExt.class.getMethod("setInterceptors", new ClientHttpRequestInterceptor2[0].getClass());
 				} catch (NoSuchMethodException shouldntHappen) {}
 			}
 		}
@@ -59,11 +59,11 @@ class ProtectedResourceClientFactory {
 			OAuth2RequestInterceptor interceptor = new OAuth2RequestInterceptor(accessToken, version);
 			try {
 				if (listBasedInterceptors) {
-					List<ClientHttpRequestInterceptor> interceptors = new LinkedList<ClientHttpRequestInterceptor>();
+					List<ClientHttpRequestInterceptor2> interceptors = new LinkedList<ClientHttpRequestInterceptor2>();
 					interceptors.add(interceptor);
 					setInterceptorsMethod.invoke(client, interceptors);			
 				} else {
-					setInterceptorsMethod.invoke(client, new Object[] {new ClientHttpRequestInterceptor[] { interceptor }});
+					setInterceptorsMethod.invoke(client, new Object[] {new ClientHttpRequestInterceptor2[] { interceptor }});
 				}
 			} catch (Exception shouldntHappen) {}
 		} else {

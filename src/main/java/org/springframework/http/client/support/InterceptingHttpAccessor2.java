@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.client.ClientHttpRequestFactory2;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.InterceptingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor2;
+import org.springframework.http.client.InterceptingClientHttpRequestFactory2;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -34,19 +34,19 @@ import org.springframework.util.CollectionUtils;
  */
 public abstract class InterceptingHttpAccessor2 extends HttpAccessor2 {
 
-	private List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+	private List<ClientHttpRequestInterceptor2> interceptors = new ArrayList<ClientHttpRequestInterceptor2>();
 
 	/**
 	 * Sets the request interceptors that this accessor should use.
 	 */
-	public void setInterceptors(List<ClientHttpRequestInterceptor> interceptors) {
+	public void setInterceptors(List<ClientHttpRequestInterceptor2> interceptors) {
 		this.interceptors = interceptors;
 	}
 
 	/**
 	 * Return the request interceptor that this accessor uses.
 	 */
-	public List<ClientHttpRequestInterceptor> getInterceptors() {
+	public List<ClientHttpRequestInterceptor2> getInterceptors() {
 		return interceptors;
 	}
 
@@ -54,7 +54,7 @@ public abstract class InterceptingHttpAccessor2 extends HttpAccessor2 {
 	public ClientHttpRequestFactory2 getRequestFactory() {
 		ClientHttpRequestFactory2 delegate = super.getRequestFactory();
 		if (!CollectionUtils.isEmpty(getInterceptors())) {
-			return new InterceptingClientHttpRequestFactory(delegate, getInterceptors());
+			return new InterceptingClientHttpRequestFactory2(delegate, getInterceptors());
 		}
 		else {
 			return delegate;

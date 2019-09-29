@@ -26,25 +26,25 @@ import org.springframework.http.HttpRequest2;
  * {@link org.springframework.web.client.RestTemplateExt RestTemplate}, as to modify the outgoing {@link ClientHttpRequest2}
  * and/or the incoming {@link ClientHttpResponse}.
  *
- * <p>The main entry point for interceptors is {@link #intercept(HttpRequest2, byte[], ClientHttpRequestExecution)}.
+ * <p>The main entry point for interceptors is {@link #intercept(HttpRequest2, byte[], ClientHttpRequestExecution2)}.
  *
  * @author Arjen Poutsma
  * @since 3.1
  */
-public interface ClientHttpRequestInterceptor {
+public interface ClientHttpRequestInterceptor2 {
 
 	/**
-	 * Intercept the given request, and return a response. The given {@link ClientHttpRequestExecution} allows
+	 * Intercept the given request, and return a response. The given {@link ClientHttpRequestExecution2} allows
 	 * the interceptor to pass on the request and response to the next entity in the chain.
 	 *
 	 * <p>A typical implementation of this method would follow the following pattern:
 	 * <ol>
 	 * <li>Examine the {@linkplain HttpRequest2 request} and body</li>
-	 * <li>Optionally {@linkplain org.springframework.http.client.support.HttpRequestWrapper wrap} the request to filter HTTP attributes.</li>
+	 * <li>Optionally {@linkplain org.springframework.http.client.support.HttpRequestWrapper2 wrap} the request to filter HTTP attributes.</li>
 	 * <li>Optionally modify the body of the request.</li>
 	 * <li><strong>Either</strong>
 	 * <ul>
-	 * <li>execute the request using {@link ClientHttpRequestExecution#execute(org.springframework.http.HttpRequest2, byte[])},</li>
+	 * <li>execute the request using {@link ClientHttpRequestExecution2#execute(org.springframework.http.HttpRequest2, byte[])},</li>
 	 * <strong>or</strong>
 	 * <li>do not execute the request to block the execution altogether.</li>
 	 * </ul>
@@ -57,7 +57,7 @@ public interface ClientHttpRequestInterceptor {
 	 * @return the response
 	 * @throws IOException in case of I/O errors
 	 */
-	ClientHttpResponse intercept(HttpRequest2 request, byte[] body, ClientHttpRequestExecution execution)
+	ClientHttpResponse intercept(HttpRequest2 request, byte[] body, ClientHttpRequestExecution2 execution)
 			throws IOException;
 
 }

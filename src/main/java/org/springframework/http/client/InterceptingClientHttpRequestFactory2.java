@@ -23,14 +23,14 @@ import java.util.List;
 import org.springframework.http.HttpMethod;
 
 /**
- * Wrapper for a {@link ClientHttpRequestFactory2} that has support for {@link ClientHttpRequestInterceptor}s.
+ * Wrapper for a {@link ClientHttpRequestFactory2} that has support for {@link ClientHttpRequestInterceptor2}s.
  *
  * @author Arjen Poutsma
  * @since 3.1
  */
-public class InterceptingClientHttpRequestFactory extends AbstractClientHttpRequestFactoryWrapper {
+public class InterceptingClientHttpRequestFactory2 extends AbstractClientHttpRequestFactoryWrapper2 {
 
-	private final List<ClientHttpRequestInterceptor> interceptors;
+	private final List<ClientHttpRequestInterceptor2> interceptors;
 
 	/**
 	 * Creates a new instance of the {@code InterceptingClientHttpRequestFactory} with the given parameters.
@@ -38,10 +38,10 @@ public class InterceptingClientHttpRequestFactory extends AbstractClientHttpRequ
 	 * @param requestFactory the request factory to wrap
 	 * @param interceptors the interceptors that are to be applied. Can be {@code null}.
 	 */
-	public InterceptingClientHttpRequestFactory(ClientHttpRequestFactory2 requestFactory,
-			List<ClientHttpRequestInterceptor> interceptors) {
+	public InterceptingClientHttpRequestFactory2(ClientHttpRequestFactory2 requestFactory,
+			List<ClientHttpRequestInterceptor2> interceptors) {
 		super(requestFactory);
-		this.interceptors = interceptors != null ? interceptors : Collections.<ClientHttpRequestInterceptor>emptyList();
+		this.interceptors = interceptors != null ? interceptors : Collections.<ClientHttpRequestInterceptor2>emptyList();
 	}
 
 	@Override

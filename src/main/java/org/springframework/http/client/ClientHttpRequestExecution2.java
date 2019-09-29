@@ -27,10 +27,10 @@ import org.springframework.http.HttpRequest2;
  * the request itself.
  *
  * @author Arjen Poutsma
- * @see ClientHttpRequestInterceptor
+ * @see ClientHttpRequestInterceptor2
  * @since 3.1
  */
-public interface ClientHttpRequestExecution {
+public interface ClientHttpRequestExecution2 {
 
 	/**
 	 * Execute the request with the given request attributes and body, and return the response.

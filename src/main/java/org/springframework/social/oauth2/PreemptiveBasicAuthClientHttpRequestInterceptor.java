@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.springframework.http.HttpRequest2;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpRequestExecution2;
+import org.springframework.http.client.ClientHttpRequestInterceptor2;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.crypto.codec.Base64;
 
@@ -29,7 +29,7 @@ import org.springframework.security.crypto.codec.Base64;
  * header with HTTP Basic credentials is always included in the request headers.
  * @author habuma
  */
-class PreemptiveBasicAuthClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+class PreemptiveBasicAuthClientHttpRequestInterceptor implements ClientHttpRequestInterceptor2 {
 	
 	private final String username;
 	
@@ -47,7 +47,7 @@ class PreemptiveBasicAuthClientHttpRequestInterceptor implements ClientHttpReque
 		this.charset = charset;
 	}
 
-	public ClientHttpResponse intercept(HttpRequest2 request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+	public ClientHttpResponse intercept(HttpRequest2 request, byte[] body, ClientHttpRequestExecution2 execution) throws IOException {
 		request.getHeaders().set("Authorization", "Basic " + new String(Base64.encode((username + ":" + password).getBytes(charset)), charset));
 		return execution.execute(request, body);
 	}

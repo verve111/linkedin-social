@@ -120,7 +120,7 @@ class ProfileTemplate extends AbstractTemplate implements ProfileOperations {
 	}
 
 	private <T> T getUserProfile(String fields, Class<T> type) {
-		return restOperations.getForObject(URIBuilder.fromUri(BASE_URL /*+ "~" + fields*/).build(), type);
+		return restOperations.getForObject(URIBuilder.fromUri(BASE_URL + "me/"  /*+ "~" + fields*/).build(), type);
 	}
 	
 	private <T> T getProfileFullById(String id, String fields, Class<T> type) {
